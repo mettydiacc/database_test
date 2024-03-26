@@ -6,9 +6,9 @@ class Person():
             new_person = super().__new__(cls)
             new_person.ids = cls.ids
             cls.person_list.append({
+                  'id': cls.ids,
                   'name': f"{args[0]}",
                   'surname': f"{args[1]}",
-                  'id': cls.ids
             })
             cls.ids += 1
             return new_person
@@ -49,3 +49,9 @@ class Person():
       @classmethod
       def get_values(self, type: str) -> str | None:
             return [{k: d.get(k) for k in ['id', f'{type}'] if k in d} for d in self.person_list]
+      
+      @classmethod
+      def get_file(self) -> None:
+            with open('people.txt', 'w')  as file:
+                file.write('\n'.join([str(i) for i in self.person_list]))
+                file.close()

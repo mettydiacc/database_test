@@ -12,6 +12,12 @@ class Person():
             })
             cls.ids += 1
             return new_person
+      
+      def __del__(cls, instance):
+            cls.person_list.pop(instance.ids)
+            for i, person in enumerate(cls.person_list):
+                  person['id'] = i
+            cls.ids = len(cls.person_list)
 
       def __init__(self,
             name: str,
@@ -52,6 +58,6 @@ class Person():
       
       @classmethod
       def get_file(self) -> None:
-            with open('people.txt', 'w')  as file:
+            with open('people.txt', 'a')  as file:
                 file.write('\n'.join([str(i) for i in self.person_list]))
                 file.close()

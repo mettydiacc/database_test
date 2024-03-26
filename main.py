@@ -1,15 +1,16 @@
+from functions.input import handle_input
 from classes.person import Person
-from pprint import pprint
+
+def load_people():
+	with open('people.txt', 'r') as file:
+		values = file.readline().strip().split(",")
+		data = {"id": values[0], "name": values[1], "surname": values[2]}
+		Person.person_list.append(data)
 
 def main() -> None:
-	_luca: Person = Person("Luca", "Moroso")
-	_mett: Person = Person("Mett", "Diacc")
-	_mett: Person = Person("Matt", "Diacc")
-	#pprint(Person.person_list)
-	#print(Person.search(1))
-	#print(Person.get_total())
-	#pprint(Person.get_values('name'))
-	Person.get_file()
+	load_people()
+	handle_input()
+	
 
 if __name__ == "__main__":
 	main()
